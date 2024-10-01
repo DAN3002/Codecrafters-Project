@@ -13,8 +13,7 @@ if [ ! -d $target_path ]; then
 	mkdir $target_path
 fi
 cp -rf $source_path/* $target_path/
-cd $target_path
-rm -rf .git
+rm -rf $target_path/.git
 
 # Committing the changes
 git add .
