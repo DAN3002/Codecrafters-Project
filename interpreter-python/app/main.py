@@ -49,11 +49,17 @@ def main():
 			elif c == "\n":
 				line_num += 1
 			elif c == "=":
-				if check_next_char(file_contents, index + 1, "="):
+				if check_next_char(file_contents, index, "="):
 					print("EQUAL_EQUAL == null")
 					index += 1
 				else:
 					print("EQUAL = null")
+			elif c == "!":
+				if check_next_char(file_contents, index, "="):
+					print("BANG_EQUAL != null")
+					index += 1
+				else:
+					print("BANG ! null")
 			else:
 				print(f"[line {line_num}] Error: Unexpected character: {
 					  c}", file=sys.stderr)
@@ -63,11 +69,11 @@ def main():
 
 	exit_program(0 if not have_err_scan else 65)
 
-def check_next_char(file_contents, index, expected_char):
-	if index >= len(file_contents):
+def check_next_char(file_contents, current_index, expected_char):
+	if current_index + 1 >= len(file_contents):
 		return False
 
-	if file_contents[index] != expected_char:
+	if file_contents[current_index + 1] != expected_char:
 		return False
 
 	return True
