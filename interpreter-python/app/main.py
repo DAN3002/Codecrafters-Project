@@ -44,8 +44,6 @@ def main():
 				print("SEMICOLON ; null")
 			elif c == "-":
 				print("MINUS - null")
-			elif c == "/":
-				print("SLASH / null")
 			elif c == "\n":
 				line_num += 1
 			elif c == "=":
@@ -72,11 +70,22 @@ def main():
 					index += 1
 				else:
 					print("GREATER > null")
+			elif c == "/":
+				if check_next_char(file_contents, index, "/"):
+					# Skip comments to end of line
+					while index < len(file_contents) and file_contents[index] != "\n":
+						index += 1
+				else:
+					print("SLASH / null")
+			elif c.isspace():
+				# Skip whitespace
+				index += 1
+				continue
 			else:
 				print(f"[line {line_num}] Error: Unexpected character: {
 					  c}", file=sys.stderr)
 				have_err_scan = True
-    
+	
 			index += 1
 
 	exit_program(0 if not have_err_scan else 65)
