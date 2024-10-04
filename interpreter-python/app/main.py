@@ -60,6 +60,18 @@ def main():
 					index += 1
 				else:
 					print("BANG ! null")
+			elif c == "<":
+				if check_next_char(file_contents, index, "="):
+					print("LESS_EQUAL <= null")
+					index += 1
+				else:
+					print("LESS < null")
+			elif c == ">":
+				if check_next_char(file_contents, index, "="):
+					print("GREATER_EQUAL >= null")
+					index += 1
+				else:
+					print("GREATER > null")
 			else:
 				print(f"[line {line_num}] Error: Unexpected character: {
 					  c}", file=sys.stderr)
