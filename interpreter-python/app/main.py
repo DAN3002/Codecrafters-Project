@@ -75,6 +75,9 @@ def main():
 					# Skip comments to end of line
 					while index < len(file_contents) and file_contents[index] != "\n":
 						index += 1
+      
+					# It should be new line after skip all comment
+					line_num += 1
 				else:
 					print("SLASH / null")
 			elif c.isspace():
