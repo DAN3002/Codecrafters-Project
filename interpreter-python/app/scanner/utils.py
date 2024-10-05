@@ -24,3 +24,26 @@ def scan_string(current_index, file_contents):
 		index += 1
   
 	return content if have_string else None, index
+
+def scan_numberic(current_index, file_contents):
+	value = ""
+	
+	index = current_index
+	while index < len(file_contents):
+		c = file_contents[index]
+		
+		if c.isnumeric():
+			value += c
+		elif c == ".":
+			# Already have dot in number => stop
+			if "." in value:
+				break
+			else:
+				value += c
+		else:
+			break
+
+		index += 1
+
+	return value, index
+	

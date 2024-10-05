@@ -1,7 +1,7 @@
 import sys
 
 from app.scanner.constants import single_pattern, double_operators_pattern
-from app.scanner.utils import check_next_char, scan_string
+from app.scanner.utils import check_next_char, scan_string, scan_numberic
 
 class LoxScanner:
 	def __init__(self, filepath) -> None:
@@ -35,7 +35,7 @@ class LoxScanner:
 						self.index += 1
 	  
 					# It should be new line after skip all comment
-					line_num += 1
+					self.line_num += 1
 				else:
 					print("SLASH / null")
 			elif c.isspace():
@@ -47,9 +47,16 @@ class LoxScanner:
 				if content is not None:
 					print(f"STRING \"{content}\" {content}")
 				else:
+					self.have_err_scan = True
 					print(f"[line {self.line_num}] Error: Unterminated string.", file=sys.stderr)
 
+				self.index = new_index + 1
+				continue
+			elif c.isnumeric():
+				value, new_index = scan_numberic(self.index, self.file_contents)
+				print(f"NUMBER {value} {float(value)}")
 				self.index = new_index
+				continue
 			else:
 				print(f"[line {self.line_num}] Error: Unexpected character: {c}", file=sys.stderr)
 				self.have_err_scan = True
