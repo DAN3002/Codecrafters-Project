@@ -75,7 +75,7 @@ def main():
 					# Skip comments to end of line
 					while index < len(file_contents) and file_contents[index] != "\n":
 						index += 1
-      
+	  
 					# It should be new line after skip all comment
 					line_num += 1
 				else:
@@ -84,9 +84,28 @@ def main():
 				# Skip whitespace
 				index += 1
 				continue
+			elif c == "\"":
+				content = ""
+				index += 1
+				have_string = False
+				while index < len(file_contents):
+					if file_contents[index] == "\n":
+						break
+					elif file_contents[index] != "\"":
+						content += file_contents[index]
+					else:
+						have_string = True
+						break
+  
+					index += 1
+
+				if have_string:
+					print(f"STRING \"{content}\" {content}")
+				else:
+					have_err_scan = True
+					print(f"[line {line_num}] Error: Unterminated string.", file=sys.stderr)
 			else:
-				print(f"[line {line_num}] Error: Unexpected character: {
-					  c}", file=sys.stderr)
+				print(f"[line {line_num}] Error: Unexpected character: {c}", file=sys.stderr)
 				have_err_scan = True
 	
 			index += 1
