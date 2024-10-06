@@ -33,3 +33,5 @@ double_operators_pattern = {
         "match_all": "GREATER_EQUAL"
     }
 }
+
+reserved_words = ["and", "class", "else", "false", "for", "fun", "if", "nil", "or", "print", "return", "super", "this", "true", "var", "while"]

@@ -1,6 +1,6 @@
 import sys
 
-from app.scanner.constants import single_pattern, double_operators_pattern
+from app.scanner.constants import single_pattern, double_operators_pattern, reserved_words
 from app.scanner.utils import \
 	check_next_char, is_identifier_char, \
  	scan_string, scan_numberic, scan_identifier
@@ -62,7 +62,10 @@ class LoxScanner:
 			elif is_identifier_char(c):
 				# indetifier can contains number (e.g _123a) => make sure to check the numeric case first before scan identifier.
 				identifier, new_index = scan_identifier(self.index, self.file_contents)
-				print(f"IDENTIFIER {identifier} null")
+				if identifier in reserved_words:
+					print(f"{identifier.upper()} {identifier} null")
+				else:
+					print(f"IDENTIFIER {identifier} null")
 				self.index = new_index
 				continue
 			else:
