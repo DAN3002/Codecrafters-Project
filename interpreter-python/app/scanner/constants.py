@@ -19,7 +19,7 @@ class TokenType(Enum):
     LESS_EQUAL = "<="
     GREATER = ">"
     GREATER_EQUAL = ">="
-    SPLASH = "/"
+    SLASH = "/"
     STRING = "STRING"
     NUMBER = "NUMBER"
     IDENTIFIER = "IDENTIFIER"

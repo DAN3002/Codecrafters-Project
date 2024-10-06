@@ -1,9 +1,14 @@
+from app.scanner import LoxScanner
+
 class LoxParser:
 	def __init__(self, filepath) -> None:
-		f = open(filepath)
-		self.file_contents = f.read()
-		f.close()
+		self.filepath = filepath
   
 	def start(self):
-		for line in self.file_contents:
-			print(line)
+		scanner = LoxScanner(filepath=self.filepath)
+		tokens = scanner.start()
+	
+		for token in tokens:
+			print(token['value'])
+
+__all__ = "LoxParser"

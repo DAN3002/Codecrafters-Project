@@ -97,7 +97,7 @@ class LoxScanner:
 				if identifier in reserved_words:
 					tokens.append({
 						"token_type": TokenType.RESERVED_WORD,
-						"value": identifier.upper(),
+						"value": identifier,
 						"message": f"{identifier} null"
 					})
 				else:

@@ -1,6 +1,7 @@
 import sys
 from app.scanner import LoxScanner, TokenType
-from app.parser.LoxParser import LoxParser
+from app.parser import LoxParser
+
 
 def main():
 	if len(sys.argv) < 3:
@@ -20,9 +21,9 @@ def main():
 				match token["token_type"]:
 					case TokenType.SCAN_ERROR:
 						have_err_scan = True
-						print(f"[line {token['line_num']}] Error: {token['error']}")
+						print(f"[line {token['line_num']}] Error: {token['error']}", file=sys.stderr)
 					case TokenType.RESERVED_WORD:
-						print(f"{token['value']} {token['message']}")
+						print(f"{token['value'].upper()} {token['message']}")
 					case default:
 						print(f"{token['token_type'].name} {token['message']}")
 
