@@ -46,4 +46,21 @@ def scan_numberic(current_index, file_contents):
 		index += 1
 
 	return value, index
+
+def is_identifier_char(c):
+    return c.isalpha() or c == "_" or c.isnumeric()
+
+def scan_identifier(current_index, file_contents):
+	identifier = ""
+ 
+	index = current_index
+	while index < len(file_contents):
+		if is_identifier_char(file_contents[index]):
+			identifier += file_contents[index]
+		else:
+			break
+
+		index += 1
+  
+	return identifier, index
 	
