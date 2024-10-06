@@ -118,3 +118,5 @@ class LoxScanner:
 			self.index += 1
 
 		return tokens
+
+__all__ = ["LoxScanner"]
