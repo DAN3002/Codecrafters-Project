@@ -1,5 +1,5 @@
 import sys
-from app.scanner.LoxScanner import LoxScanner
+from app.scanner import LoxScanner, TokenType
 from app.parser.LoxParser import LoxParser
 
 def main():
@@ -13,8 +13,19 @@ def main():
 	match command:
 		case "tokenize":
 			scanner = LoxScanner(filepath=filename)
-			have_err_scan = scanner.start()
+			tokens = scanner.start()
    
+			have_err_scan = False
+			for token in tokens:
+				match token["token_type"]:
+					case TokenType.SCAN_ERROR:
+						have_err_scan = True
+						print(f"[line {token['line_num']}] Error: {token['error']}")
+					case TokenType.RESERVED_WORD:
+						print(f"{token['value']} {token['message']}")
+					case default:
+						print(f"{token['token_type'].name} {token['message']}")
+
 			print("EOF  null")
 			exit(0 if not have_err_scan else 65)
 		case "parse":
