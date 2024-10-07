@@ -1,4 +1,4 @@
-from app.scanner import LoxScanner
+from app.scanner import LoxScanner, TokenType
 
 class LoxParser:
 	def __init__(self, filepath) -> None:
@@ -9,6 +9,10 @@ class LoxParser:
 		tokens = scanner.start()
 	
 		for token in tokens:
-			print(token['value'])
+			match token['token_type']:
+				case TokenType.NUMBER:
+					print(float(token['value']))
+				case default:
+					print(token['value'])
 
 __all__ = "LoxParser"
