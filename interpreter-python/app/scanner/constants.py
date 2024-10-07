@@ -25,6 +25,7 @@ class TokenType(Enum):
     IDENTIFIER = "IDENTIFIER"
     SCAN_ERROR = "SCAN_ERROR"
     RESERVED_WORD = "RESERVED_WORD"
+    EOF = "EOF"
 
 single_pattern = {
     "(": TokenType.LEFT_PAREN,

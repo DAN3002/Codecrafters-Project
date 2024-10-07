@@ -27,7 +27,6 @@ def main():
 					case default:
 						print(f"{token['token_type'].name} {token['message']}")
 
-			print("EOF  null")
 			exit(0 if not have_err_scan else 65)
 		case "parse":
 			parser = LoxParser(filepath=filename)

@@ -117,6 +117,10 @@ class LoxScanner:
 
 			self.index += 1
 
+		tokens.append({
+			"token_type": TokenType.EOF,
+			"message": "null"
+		})
 		return tokens
 
 __all__ = ["LoxScanner"]
