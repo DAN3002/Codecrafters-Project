@@ -13,6 +13,18 @@ def main():
 		# Uncomment this block to pass the first stage
 		decoded_value, index = decode_bencode(bencoded_value)
 		print(json.dumps(decoded_value, default=bytes_to_str))
+	elif command == "info":
+		filepath = sys.argv[2]
+		with open(filepath, "rb") as f:
+			file_content = f.read()
+			f.close()
+   
+		decoded_value, _ = decode_bencode(file_content)
+		tracker_url = bytes_to_str(decoded_value['announce'])
+		file_len = decoded_value['info']['length']
+
+		print(f"Tracker URL: {tracker_url}")
+		print(f"Length: {file_len}")
 	else:
 		raise NotImplementedError(f"Unknown command {command}")
 

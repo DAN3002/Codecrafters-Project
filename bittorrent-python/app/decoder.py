@@ -22,7 +22,7 @@ def decode_string(bencoded_value):
 	if (colon_index + string_size > len(bencoded_value)):
 		raise ValueError("Invalid string size")
 
-	str_value = bytes_to_str(bencoded_value[colon_index + 1:colon_index + string_size + 1])
+	str_value = bencoded_value[colon_index + 1:colon_index + string_size + 1]
 	new_index = colon_index + string_size
 
 	return str_value, new_index
@@ -41,7 +41,8 @@ def decode_dict(bencoded_value):
 	while len(bencoded_value) != 0 and chr(bencoded_value[0]) != 'e':
 		key, new_index = decode_bencode(bencoded_value)
 		bencoded_value = bencoded_value[new_index + 1:]
-  
+		key = bytes_to_str(key)
+
 		value, new_index = decode_bencode(bencoded_value)
 		bencoded_value = bencoded_value[new_index + 1:]
   
