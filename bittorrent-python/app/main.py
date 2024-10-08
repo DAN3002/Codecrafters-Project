@@ -28,9 +28,16 @@ def main():
 		# Just too lazy to implement encode method =))
 		info_hash = hashlib.sha1(bencodepy.encode(info))
 
+		piece_length = info['piece length']
+		pieces = info['pieces']
+		pieces_hash = [pieces[i:i+piece_length] for i in range(0, len(pieces), piece_length)]
+
 		print(f"Tracker URL: {tracker_url}")
 		print(f"Length: {info['length']}")
 		print(f"Info Hash: {info_hash.hexdigest()}")
+		print(f"Piece Length: {piece_length}")
+		for piece_hash in pieces_hash:
+			print(piece_hash.hex())
 	else:
 		raise NotImplementedError(f"Unknown command {command}")
 
