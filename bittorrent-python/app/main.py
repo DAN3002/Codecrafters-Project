@@ -6,17 +6,13 @@ from app.utils import bytes_to_str
 from app.decoder import decode_bencode
 from app.torrent_file import read_info
 
-PEER_ID = "00112233445566778899"
-PORT = 6881
-
 def main():
 	command = sys.argv[1]
 
 	if command == "decode":
 		bencoded_value = sys.argv[2].encode()
 
-		# Uncomment this block to pass the first stage
-		decoded_value, index = decode_bencode(bencoded_value)
+		decoded_value, _ = decode_bencode(bencoded_value)
 		print(json.dumps(decoded_value, default=bytes_to_str))
 	elif command == "info":
 		filepath = sys.argv[2]
@@ -37,8 +33,8 @@ def main():
 
 		request_parrams = {
 			'info_hash': torrent_file_info['info_hash'].digest(),
-			'peer_id': PEER_ID,
-			'port': PORT,
+			'peer_id': "00112233445566778899",
+			'port': 6881,
 			'uploaded': 0,
 			'downloaded': 0,
 			'left': torrent_file_info['file_length'],
@@ -55,7 +51,6 @@ def main():
 			print(f"{ip}:{port}")
 	else:
 		raise NotImplementedError(f"Unknown command {command}")
-
 
 if __name__ == "__main__":
 	main()
