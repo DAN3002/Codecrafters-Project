@@ -1,5 +1,7 @@
 import json
 import sys
+import hashlib
+import bencodepy
 
 from app.utils import bytes_to_str
 from app.decoder import decode_bencode
@@ -20,11 +22,15 @@ def main():
 			f.close()
    
 		decoded_value, _ = decode_bencode(file_content)
+
 		tracker_url = bytes_to_str(decoded_value['announce'])
-		file_len = decoded_value['info']['length']
+		info = decoded_value['info']
+		# Just too lazy to implement encode method =))
+		info_hash = hashlib.sha1(bencodepy.encode(info))
 
 		print(f"Tracker URL: {tracker_url}")
-		print(f"Length: {file_len}")
+		print(f"Length: {info['length']}")
+		print(f"Info Hash: {info_hash.hexdigest()}")
 	else:
 		raise NotImplementedError(f"Unknown command {command}")
 
